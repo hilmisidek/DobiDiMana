@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "745397018782",
+    "firebase_url": "https://dobidimana.firebaseio.com",
+    "project_id": "dobidimana",
+    "storage_bucket": "dobidimana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745397018782:android:d82c9c1174a25a9e",
+        "android_client_info": {
+          "package_name": "com.aler.dobidimana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745397018782-flbho9f9q1l6kbijdv7vugu8qn2l80lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTHqvUWa7-ZaQ-3UBC_mIwVJVZYiyJVg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
