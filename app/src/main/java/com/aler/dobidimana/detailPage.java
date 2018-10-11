@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
+import java.util.Locale;
+
 public class detailPage extends AppCompatActivity {
 double latFinal;
 double longFinal;
@@ -30,6 +34,8 @@ double longFinal;
         String latitudeDetail=b.getString("latitudeDetail");
         String longitudeDetail=b.getString("longitudeDetail");
         Float distanceDetail=b.getFloat("distanceDetail");
+        String openDetail=b.getString("openDetail");
+
         latFinal=Double.valueOf(latitudeDetail);
         longFinal=Double.valueOf(longitudeDetail);
         String distanceFinal="";
@@ -62,8 +68,14 @@ double longFinal;
 
         TextView nameText=(TextView)findViewById(R.id.name_Text);
         TextView addressText=(TextView)findViewById(R.id.addree_Text);
+        TextView distanceText=(TextView) findViewById(R.id.distance);
+        TextView openText=(TextView)findViewById(R.id.open_now_text);
+
         nameText.setText(nameDetail);
-        addressText.setText(addressDetail+","+latitudeDetail+","+longitudeDetail+"\n Distance:"+distanceFinal+" "+unit);
+        addressText.setText(addressDetail);
+        distanceText.setText(distanceFinal+unit);
+        openText.setText(openDetail);
+
 
 
 //        https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=YOUR_API_KEY

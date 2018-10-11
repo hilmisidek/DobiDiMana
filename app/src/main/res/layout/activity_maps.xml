@@ -12,18 +12,17 @@
         android:id="@+id/tempResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/loc_status"
         android:layout_weight="0"/>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".MapsActivity"
-        android:layout_weight="2"/>
+    android:layout_weight="2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,11 +41,10 @@
             app:srcCompat="@drawable/icon"
             android:onClick="moveAction"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
-
-
-
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/contentdesc_text"/>
     </RelativeLayout>
 
 

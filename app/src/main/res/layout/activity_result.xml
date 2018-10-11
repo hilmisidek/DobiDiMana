@@ -5,44 +5,45 @@
     android:background="#ffffff"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="latitude="
         android:id="@+id/latiText"
-        />
-    <TextView
+        />-->
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lontitude"
         android:id="@+id/longiText"
-        />
+        />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tempData"
-        />
+        android:id="@+id/search_result_text"
+        android:text="@string/result_text"
+        android:layout_margin="8dp"/>
+
     <ListView
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:id="@android:id/list"
-        android:layout_weight="1">
+        android:layout_weight="2"
+        android:layout_margin="8dp">
 
     </ListView>
 
-    <com.google.android.gms.ads.AdView
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/adView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_alignParentBottom="true"
-    ads:adSize="SMART_BANNER"
-    ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        android:layout_margin="8dp">
     </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

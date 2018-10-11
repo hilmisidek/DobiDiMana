@@ -92,10 +92,10 @@ public class result extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
 
-        TextView latiV=(TextView)findViewById(R.id.latiText);
-        latiV.setText(latitude);
-        TextView longiV=(TextView)findViewById(R.id.longiText);
-        longiV.setText(longtitude);
+//        TextView latiV=(TextView)findViewById(R.id.latiText);
+//        latiV.setText(latitude);
+//        TextView longiV=(TextView)findViewById(R.id.longiText);
+//        longiV.setText(longtitude);
         new googleplaces().execute();
     }
 
@@ -204,10 +204,7 @@ public class result extends AppCompatActivity {
                        String latResult=venuesList.get(posisi).getLatResult();
                        String longResult=venuesList.get(posisi).getLongResult();
                        Float distanceResult=distance[posisi];
-
-
-
-
+                       String openResult=venuesList.get(posisi).getOpenNow();
 
                        //in normal case
                       // stringText= ((TextView)view).getText().toString();
@@ -216,8 +213,8 @@ public class result extends AppCompatActivity {
                        TextView textview=(TextView)view.findViewById(R.id.listText);
                        stringText=textview.getText().toString();
 
-                       TextView DATAtemp=(TextView)findViewById(R.id.tempData);
-                       DATAtemp.setText(namaResult);
+//                       TextView DATAtemp=(TextView)findViewById(R.id.tempData);
+//                       DATAtemp.setText(namaResult);
 
                        Intent clickAction=new Intent(result.this,detailPage.class);
                        Bundle detail=new Bundle();
@@ -227,7 +224,7 @@ public class result extends AppCompatActivity {
                        detail.putString("latitudeDetail",latResult);
                        detail.putString("longitudeDetail",longResult);
                        detail.putFloat("distanceDetail",distanceResult);
-
+                       detail.putString("openDetail",openResult);
 
                        clickAction.putExtras(detail);
                        startActivity(clickAction);
