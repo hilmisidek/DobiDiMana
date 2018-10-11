@@ -1,8 +1,13 @@
 package com.aler.dobidimana;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -47,7 +52,16 @@ import static android.icu.text.Normalizer.YES;
  * An activity that displays a map showing the place at the device's current location.
  */
 public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback,LocationListener {
+
+    public Criteria criteria;
+    public String bestProvider;
+
+   public LocationManager mNoll;
+
+
+
+
     TextView tempR;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -236,24 +250,51 @@ public class MapsActivity extends AppCompatActivity
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                        } else {
-                            Log.d(TAG, "Current location is null. Using defaults.");
-                            Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                mNoll=(LocationManager) getSystemService(LOCATION_SERVICE);
+
+                criteria = new Criteria();
+                bestProvider = String.valueOf(mNoll.getBestProvider(criteria, true)).toString();
+                Location location=mNoll.getLastKnownLocation(bestProvider);
+                if (location !=null) {
+
+
+                    locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            if (task.isSuccessful()) {
+                                // Set the map's camera position to the current location of the device.
+                                mLastKnownLocation = task.getResult();
+
+                                //NULL location handler?
+                                if (mLastKnownLocation == null) {
+
+//                                mLastKnownLocation.setLatitude(mDefaultLocation.latitude);
+//                                locationManager=(LocationManager) getSystemService(LOCATION_SERVICE);
+//                                PendingIntent mIntent=PendingIntent.getService()
+//                                Criteria criteria = new Criteria();
+
+//                                String bestProvider=String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
+//                                locationManager.requestLocationUpdates(bestProvider, 1000, 0,);
+                                    //locationManager=(LocationManager) MapsActivity.getSystemService(MapsActivity.LOCATION_SERVICE);
+                                    // mLastKnownLocation.
+                                }
+                                //
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            } else {
+                                Log.d(TAG, "Current location is null. Using defaults.");
+                                Log.e(TAG, "Exception: %s", task.getException());
+                                mMap.moveCamera(CameraUpdateFactory
+                                        .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else{  mNoll.requestLocationUpdates(bestProvider, 1000, 0, this);}
+
+
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
@@ -469,6 +510,30 @@ public class MapsActivity extends AppCompatActivity
     startActivity(move);
     }
 
-
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //Hey, a non null location! Sweet!
+
+        //remove location callback:
+        mNoll.removeUpdates(this);
+
+    }
+
+
+
+}
