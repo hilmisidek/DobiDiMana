@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 public class detailPage extends AppCompatActivity {
 double latFinal;
 double longFinal;
-//insert your API key here
+//insert your API key here --
     private String GOOGLE_KEY="your key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
