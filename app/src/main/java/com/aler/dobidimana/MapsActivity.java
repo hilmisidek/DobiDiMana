@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -218,12 +220,14 @@ public class MapsActivity extends AppCompatActivity
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-        tempR.setText("Device Location Set");
+
+            //tempR.setText("Device Location Set");
 
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
                 getDeviceLocation();
+
                 Double setLat = mLastKnownLocation.getLatitude();
                 tempR = (TextView) findViewById(R.id.tempResult);
 
@@ -266,7 +270,7 @@ public class MapsActivity extends AppCompatActivity
                                 mLastKnownLocation = task.getResult();
 
                                 //NULL location handler?
-                                if (mLastKnownLocation == null) {
+
 
 //                                mLastKnownLocation.setLatitude(mDefaultLocation.latitude);
 //                                locationManager=(LocationManager) getSystemService(LOCATION_SERVICE);
@@ -277,7 +281,7 @@ public class MapsActivity extends AppCompatActivity
 //                                locationManager.requestLocationUpdates(bestProvider, 1000, 0,);
                                     //locationManager=(LocationManager) MapsActivity.getSystemService(MapsActivity.LOCATION_SERVICE);
                                     // mLastKnownLocation.
-                                }
+
                                 //
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLastKnownLocation.getLatitude(),
@@ -292,7 +296,17 @@ public class MapsActivity extends AppCompatActivity
                         }
                     });
                 }
-                else{  mNoll.requestLocationUpdates(bestProvider, 1000, 0, this);}
+                else{
+                    tempR.setText("else true");
+                    mNoll.requestLocationUpdates(bestProvider, 1000, 0, this);
+               //     while (mLastKnownLocation==null){
+                    mMap.setMyLocationEnabled(false);
+                    tempR.setText("waiting for GPS");
+                    textBlinkStart(tempR);
+                 //   }
+                //    mLastKnownLocation=mNoll.getLastKnownLocation(bestProvider);
+//                    getDeviceLocation();
+                }
 
 
             }
@@ -530,10 +544,34 @@ public class MapsActivity extends AppCompatActivity
         //Hey, a non null location! Sweet!
 
         //remove location callback:
+        textBlinkStop(tempR);
+        tempR.setText("device location updated now");
+        mLastKnownLocation=mNoll.getLastKnownLocation(bestProvider);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        mMap.setMyLocationEnabled(true);
         mNoll.removeUpdates(this);
 
     }
 
+    public void textBlinkStart(TextView toBlink) {
 
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+
+        anim.setDuration(100); //You can manage the time of the blink with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        toBlink.startAnimation(anim);
+    }
+
+
+    public void textBlinkStop(TextView toBlink){
+
+            toBlink.clearAnimation(); // cancel blink animation
+            toBlink.setAlpha(1.0f); // restore original alpha
+        }
 
 }
