@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -54,13 +56,14 @@ import static android.icu.text.Normalizer.YES;
  * An activity that displays a map showing the place at the device's current location.
  */
 public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback,LocationListener {
+        implements OnMapReadyCallback,LocationListener{
+
 
     public Criteria criteria;
     public String bestProvider;
 
    public LocationManager mNoll;
-
+    public int searchRadius;
 
 
 
@@ -114,6 +117,9 @@ public class MapsActivity extends AppCompatActivity
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
+
+
+
         // Construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
@@ -130,7 +136,7 @@ public class MapsActivity extends AppCompatActivity
 //notification
         tempR=(TextView)findViewById(R.id.tempResult);
         tempR.setText("Getting device location");
-
+        getDeviceLocation();
 
 
 
@@ -268,7 +274,7 @@ public class MapsActivity extends AppCompatActivity
                             if (task.isSuccessful()) {
                                 // Set the map's camera position to the current location of the device.
                                 mLastKnownLocation = task.getResult();
-
+                                tempR.setText("Device location updated last known");
                                 //NULL location handler?
 
 
@@ -504,25 +510,7 @@ public class MapsActivity extends AppCompatActivity
         }
     }
 
-    public void moveAction(View View){
-      searchDobi();
-    }
 
-    public void searchDobi()
-    {
-    getDeviceLocation();
-    Intent move = new Intent(this, result.class);
-    Bundle b = new Bundle();
-    getDeviceLocation();
-    Double tempCurLat=mLastKnownLocation.getLatitude();
-    Double tempCurLong=mLastKnownLocation.getLongitude();
-   // tempR=(TextView)findViewById(R.id.tempResult);
-   // tempR.setText(tempCurLat.toString());
-    b.putDouble("curLat",tempCurLat);
-    b.putDouble("curLong",tempCurLong);
-    move.putExtras(b);
-    startActivity(move);
-    }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -573,5 +561,29 @@ public class MapsActivity extends AppCompatActivity
             toBlink.clearAnimation(); // cancel blink animation
             toBlink.setAlpha(1.0f); // restore original alpha
         }
+
+
+    public void moveAction(View View){
+        searchDobi();
+    }
+
+    public void searchDobi()
+    {
+        getDeviceLocation();
+        Intent move = new Intent(this, result.class);
+        Bundle b = new Bundle();
+        getDeviceLocation();
+        Double tempCurLat=mLastKnownLocation.getLatitude();
+        Double tempCurLong=mLastKnownLocation.getLongitude();
+        // tempR=(TextView)findViewById(R.id.tempResult);
+        // tempR.setText(tempCurLat.toString());
+        b.putDouble("curLat",tempCurLat);
+        b.putDouble("curLong",tempCurLong);
+        move.putExtras(b);
+        startActivity(move);
+    }
+
+
+
 
 }

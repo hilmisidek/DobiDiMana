@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.internal.gmsg.HttpClient;
 import com.google.android.gms.common.api.Response;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,11 +55,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class result extends AppCompatActivity {
+
     private AdView mAdView;
-
-
+    private AdView mAdViewAlt;
     ArrayList<GooglePlace> venuesList;
-
     String latitude = "5.282113";
     String longtitude = "103.162515";
     private int PROXIMITY_RADIUS = 5000;
@@ -73,7 +73,8 @@ public class result extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-       // Bundle b=getIntent().getExtras();
+
+
        // Double curLati=b.getDouble("currLat");
        // Double curLongi=b.getDouble("currLong");
       //  latitude=curLati.toString();
@@ -81,10 +82,17 @@ public class result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         GOOGLE_KEY=getString(R.string.google_maps_key);
          Bundle b=getIntent().getExtras();
+
+
          Double curLati=b.getDouble("curLat");
           Double curLongi=b.getDouble("curLong");
          latitude=curLati.toString();
          longtitude=curLongi.toString();
+
+        MobileAds.initialize(this,getString(R.string.admob_key));
+
+
+      //  theList.setVisibility(View.VISIBLE);
 
         setContentView(R.layout.activity_result);
         mAdView = findViewById(R.id.adView);
@@ -133,10 +141,14 @@ public class result extends AppCompatActivity {
         @Override
         protected String doInBackground(View... urls) {
             // make Call to the url
-            temp = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&radius=1500&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+            temp = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&rankby=distance&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+//            temp = makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&radius="+radiusSet+"&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+
 
             //print the call in the console
-            System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&radius=1500&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+            System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&rankby=distance&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+//            System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longtitude + "&radius="+radiusSet+"&type=laundry&sensor=true&key=" + GOOGLE_KEY);
+
             return "";
         }
 
@@ -191,6 +203,11 @@ public class result extends AppCompatActivity {
                 myAdapter = new ArrayAdapter<String>(result.this, R.layout.row_layout, R.id.listText, listTitle);
 
                theList = (ListView)findViewById(android.R.id.list);
+                mAdViewAlt=findViewById(R.id.adViewAlt);
+
+                mAdViewAlt.setVisibility(View.GONE);
+               theList.setVisibility(View.VISIBLE);
+
                 theList.setAdapter(myAdapter);
                //  start
                theList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -235,6 +252,20 @@ public class result extends AppCompatActivity {
                });
 //end
             }
+        if (venuesList.size()==0){
+                TextView searchText =(TextView)findViewById(R.id.search_result_text);
+                searchText.setText("No result, showing ads");
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdViewAlt.loadAd(adRequest);
+            theList.setVisibility(View.GONE);
+            mAdViewAlt.setVisibility(View.VISIBLE);
+
+
+
+
+        }
+
         }
     }
 
