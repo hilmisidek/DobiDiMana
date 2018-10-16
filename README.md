@@ -28,6 +28,7 @@ Features to be added
 Ads
 1. Bottom page smart banner on result page 
 2. Take over list placeholder if no result found
+
 Aim to be not annoying but put idea to user's head to click on ads
 
 
