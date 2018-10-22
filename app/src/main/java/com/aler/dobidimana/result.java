@@ -2,9 +2,11 @@ package com.aler.dobidimana;
 
 import android.app.DownloadManager;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +67,7 @@ public class result extends AppCompatActivity {
    // private static final String GOOGLE_KEY=Your API key;
    private String GOOGLE_KEY="your key";
     ArrayAdapter<String> myAdapter;
+    ArrayAdapter<String> AddrAdapter;
 
     ListView theList;
    // ArrayAdapter<String> myAdapter;
@@ -121,9 +124,10 @@ public class result extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-   //     if (item.getItemId() == R.id.search_dobi) {
-       //     searchDobi();
-     //   }
+        if (item.getItemId()==R.id.about_single){
+            Intent aboutScreen=new Intent (this,about.class);
+            startActivity(aboutScreen);
+        }
         return true;
     }
 
@@ -182,7 +186,8 @@ public class result extends AppCompatActivity {
 
                 final Float[] distance=new Float[venuesList.size()];
                 //
-                List<String> listTitle = new ArrayList<String>();
+//                List<String> listTitle = new ArrayList<String>();
+//                List<String> listAddress = new ArrayList<>();
 
                 for (int i = 0; i < venuesList.size(); i++) {
                     // make a list of the venus that are loaded in the list.
@@ -191,24 +196,40 @@ public class result extends AppCompatActivity {
                     destiny.setLatitude(Double.valueOf(venuesList.get(i).getLatResult()));
                     destiny.setLongitude(Double.valueOf(venuesList.get(i).getLongResult()));
                     distance[i]=currLoc.distanceTo(destiny);
-                    listTitle.add(i, venuesList.get(i).getName() + "\nOpen Now: " +
-                            venuesList.get(i).getOpenNow() +"\nPhoto ID=" + venuesList.get(i).getPhotoID() +
-                            "\n(" + venuesList.get(i).getCategory() + ")"+"\nlat="+
-                            venuesList.get(i).getLatResult()+"\nlong="+venuesList.get(i).getLongResult()+"\ndistance="+
-                            distance[i]);
+//                    listTitle.add(i, venuesList.get(i).getName() + "\nOpen Now: " +
+//                            venuesList.get(i).getOpenNow() +"\nPhoto ID=" + venuesList.get(i).getPhotoID() +
+//                            "\n(" + venuesList.get(i).getCategory() + ")"+"\nlat="+
+//                            venuesList.get(i).getLatResult()+"\nlong="+venuesList.get(i).getLongResult()+"\ndistance="+
+//                            distance[i]);
+//                    //listAddress.add(i,venuesList.get(i).getAddress());
                 }
 
                 // set the results to the list
                 // and show them in the xml
-                myAdapter = new ArrayAdapter<String>(result.this, R.layout.row_layout, R.id.listText, listTitle);
+//                myAdapter = new ArrayAdapter<String>(result.this, R.layout.row_layout, R.id.listText, listTitle);
+//            myAdapter= new customAdapter(getApplicationContext(),listTitle,listAddress);
+                //    AddrAdapter = new ArrayAdapter<String>(result.this,R.layout.row_layout,R.id.addressText,listAddress);
+ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,venuesList,distance);
+
 
                theList = (ListView)findViewById(android.R.id.list);
+               theList.setAdapter(adapter);
                 mAdViewAlt=findViewById(R.id.adViewAlt);
 
                 mAdViewAlt.setVisibility(View.GONE);
                theList.setVisibility(View.VISIBLE);
 
-                theList.setAdapter(myAdapter);
+//               separate view trial
+
+
+
+
+
+//
+
+
+
+             //   theList.setAdapter(myAdapter,AddrAdapter);
                //  start
                theList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                    @Override

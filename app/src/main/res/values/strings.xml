@@ -10,13 +10,13 @@
     <string name="open_now_label">Open Now:</string>
     <string name="name">Name of establishment</string>
     <string name="address">Address of establishment</string>
-    <string name="open_now">Open Now YES or NO</string>
+    <string name="open_now">YES/NO/NA</string>
     <string name="go_button">GO</string>
     <string name="contentdesc_text">Fetching photo</string>
     <string name="loc_status">Location status</string>
     <string name="result_text">Search result sorted by distance (20 nearest)</string>
     <string name="distance_label">Distance:</string>
-    <string name="distance">Distance from current location to establishment</string>
+    <string name="distance">X m/km</string>
     <string name="top_instruction">Update your location, set search radius and click on search icon</string>
     <string name="spin_text">Search radius</string>
 

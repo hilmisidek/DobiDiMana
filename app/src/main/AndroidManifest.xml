@@ -53,6 +53,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".result" />
+        <activity android:name=".about" />
         <activity android:name=".detailPage"></activity>
        <!--for API 28 need to add below lines-->
         <uses-library android:name="org.apache.http.legacy"

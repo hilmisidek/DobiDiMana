@@ -20,6 +20,7 @@ import java.util.Locale;
 public class detailPage extends AppCompatActivity {
 double latFinal;
 double longFinal;
+    //String unit="m";
 //insert your API key here --
     private String GOOGLE_KEY="your key";
     @Override
@@ -38,8 +39,8 @@ double longFinal;
 
         latFinal=Double.valueOf(latitudeDetail);
         longFinal=Double.valueOf(longitudeDetail);
-        String distanceFinal="";
-        String unit="m";
+        String distanceFinal=distanceValue(distanceDetail);
+
 
 //        if (distanceDetail.compareTo(999.99f)>0) {
 //            distanceFinal = distanceFinal/1000;
@@ -48,22 +49,22 @@ double longFinal;
 //        else {
         //    distanceFinal=Math.round(distanceDetail);
       //change unit if >1000m
-        int compareResult=Float.compare(distanceDetail,999.99f);
-
-          if (compareResult>0){
-                    distanceDetail=distanceDetail/1000;
-            distanceFinal=String.format("%.2f",distanceDetail);
-                    unit="km";
-        }
-        else if(compareResult<0)
-        {
-          distanceFinal=String.valueOf(Math.round(distanceDetail));
-        }
-
-        else
-            {
-                distanceFinal=String.valueOf(Math.round(distanceDetail));
-            }
+//        int compareResult=Float.compare(distanceDetail,999.99f);
+//
+//          if (compareResult>0){
+//                    distanceDetail=distanceDetail/1000;
+//            distanceFinal=String.format("%.2f",distanceDetail);
+//                    unit="km";
+//        }
+//        else if(compareResult<0)
+//        {
+//          distanceFinal=String.valueOf(Math.round(distanceDetail));
+//        }
+//
+//        else
+//            {
+//                distanceFinal=String.valueOf(Math.round(distanceDetail));
+//            }
 
 
         TextView nameText=(TextView)findViewById(R.id.name_Text);
@@ -73,7 +74,7 @@ double longFinal;
 
         nameText.setText(nameDetail);
         addressText.setText(addressDetail);
-        distanceText.setText(distanceFinal+unit);
+        distanceText.setText(distanceFinal);
         openText.setText(openDetail);
 
 
@@ -107,9 +108,10 @@ double longFinal;
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //     if (item.getItemId() == R.id.search_dobi) {
-        //     searchDobi();
-        //   }
+        if (item.getItemId()==R.id.about_single){
+            Intent aboutScreen=new Intent (this,about.class);
+            startActivity(aboutScreen);
+        }
         return true;
     }
 
@@ -125,7 +127,27 @@ double longFinal;
 
  }
 
+public String distanceValue(Float distance){
+String distanceAfter=" ";
+    int compareResult=Float.compare(distance,999.99f);
 
+    if (compareResult>0){
+        distance=distance/1000;
+        distanceAfter=String.format("%.2f",distance)+"km";
+       // unit="km";
+    }
+    else if(compareResult<0)
+    {
+        distanceAfter=String.valueOf(Math.round(distance))+"m";
+    }
+
+    else
+    {
+        distanceAfter=String.valueOf(Math.round(distance))+"m";
+    }
+
+return distanceAfter;
+    }
 
 
 }

@@ -167,6 +167,11 @@ public class MapsActivity extends AppCompatActivity
         if (item.getItemId() == R.id.search_dobi) {
             searchDobi();
         }
+        if (item.getItemId()==R.id.about){
+            Intent aboutScreen=new Intent (this,about.class);
+            startActivity(aboutScreen);
+        }
+
         return true;
     }
 
@@ -223,7 +228,7 @@ public class MapsActivity extends AppCompatActivity
                 Double setLat = mLastKnownLocation.getLatitude();
                 tempR = findViewById(R.id.tempResult);
 
-                tempR.setText("Device location updated to" + setLat.toString());
+                tempR.setText("Device location updated");
 
                 return false;
             }
@@ -260,7 +265,7 @@ public class MapsActivity extends AppCompatActivity
                             if (task.isSuccessful()) {
                                 // Set the map's camera position to the current location of the device.
                                 mLastKnownLocation = task.getResult();
-                                tempR.setText("Device location updated last known");
+                                tempR.setText("Device location updated");
                                 //NULL location handler?
 
 
