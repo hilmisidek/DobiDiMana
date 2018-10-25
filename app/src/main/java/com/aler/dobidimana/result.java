@@ -1,12 +1,13 @@
 package com.aler.dobidimana;
 
-import android.app.DownloadManager;
-import android.app.ListActivity;
-import android.content.Context;
+
+
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,16 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.internal.gmsg.HttpClient;
-import com.google.android.gms.common.api.Response;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+
+
+
+
+
 
 //import org.apache.http.HttpResponse;
 
@@ -41,10 +42,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,22 +54,24 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
+
+@SuppressWarnings({"ALL", "unused"})
 public class result extends AppCompatActivity {
+    String value="callback";
 
-    private AdView mAdView;
     private AdView mAdViewAlt;
     ArrayList<GooglePlace> venuesList;
     String latitude = "5.282113";
     String longtitude = "103.162515";
     private int PROXIMITY_RADIUS = 5000;
    // private static final String GOOGLE_KEY=Your API key;
+    public String GOOGLE_KEY_Lorry="lori";
    private String GOOGLE_KEY="your key";
     ArrayAdapter<String> myAdapter;
     ArrayAdapter<String> AddrAdapter;
 
+    @SuppressWarnings("WeakerAccess")
     ListView theList;
    // ArrayAdapter<String> myAdapter;
 //String listResult[]={"satu","dua","tiga"};
@@ -83,7 +86,16 @@ public class result extends AppCompatActivity {
       //  latitude=curLati.toString();
       //  longtitude=curLongi.toString();
         super.onCreate(savedInstanceState);
-        GOOGLE_KEY=getString(R.string.google_maps_key);
+
+
+        GOOGLE_KEY=getString(R.string.place_api_key);
+
+       //firebaseRead();
+
+
+   // GOOGLE_KEY=value;
+
+      // GOOGLE_KEY=value;
          Bundle b=getIntent().getExtras();
 
 
@@ -98,7 +110,21 @@ public class result extends AppCompatActivity {
       //  theList.setVisibility(View.VISIBLE);
 
         setContentView(R.layout.activity_result);
-        mAdView = findViewById(R.id.adView);
+
+      //  final TextView keyView=(TextView)findViewById(R.id.tempKEY);
+
+//        readData(new MyCallback() {
+//            @Override
+//            public void onCallback(final String value) {
+//                Log.d("TAG", value);
+//                GOOGLE_KEY=value;
+//                keyView.setText(GOOGLE_KEY);
+//                //   GOOGLE_KEY = value;
+//            }
+//        });
+
+
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -138,6 +164,7 @@ public class result extends AppCompatActivity {
 
 
 
+    @SuppressLint("StaticFieldLeak")
     private class googleplaces extends AsyncTask<View, Void, String> {
 
         String temp;
@@ -180,7 +207,7 @@ public class result extends AppCompatActivity {
 
 
 
-                venuesList = (ArrayList<GooglePlace>) parseGoogleParse(temp);
+                venuesList = parseGoogleParse(temp);
 
                 //add distance array
 
@@ -212,7 +239,7 @@ public class result extends AppCompatActivity {
 ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,venuesList,distance);
 
 
-               theList = (ListView)findViewById(android.R.id.list);
+               theList = findViewById(android.R.id.list);
                theList.setAdapter(adapter);
                 mAdViewAlt=findViewById(R.id.adViewAlt);
 
@@ -235,7 +262,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
                    @Override
                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                        String stringText;
-                       int posisi=position;
+                       @SuppressWarnings("UnnecessaryLocalVariable") int posisi=position;
                        String namaResult=venuesList.get(posisi).getName();
                        String addressResult = venuesList.get(posisi).getAddress();
                        String photoIDResult=venuesList.get(posisi).getPhotoID();
@@ -248,7 +275,8 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
                       // stringText= ((TextView)view).getText().toString();
 
                        //in case if listview has separate item layout
-                       TextView textview=(TextView)view.findViewById(R.id.listText);
+                       TextView textview= view.findViewById(R.id.listText);
+                       //noinspection UnusedAssignment
                        stringText=textview.getText().toString();
 
 //                       TextView DATAtemp=(TextView)findViewById(R.id.tempData);
@@ -274,8 +302,9 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 //end
             }
         if (venuesList.size()==0){
-                TextView searchText =(TextView)findViewById(R.id.search_result_text);
-                searchText.setText("No result, showing ads");
+                TextView searchText = findViewById(R.id.search_result_text);
+
+                searchText.setText(R.string.no_result_text);
 
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdViewAlt.loadAd(adRequest);
@@ -290,6 +319,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
         }
     }
 
+    @SuppressWarnings("StringBufferMayBeStringBuilder")
     public static String makeCall(String url) {
        //String placesBuilder="null";
         // string buffers the url
@@ -307,7 +337,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
 
-                BufferedReader reader = null;
+                @SuppressWarnings("UnusedAssignment") BufferedReader reader = null;
 
                 InputStream inputStream = connection.getInputStream();
                 if (inputStream == null) {
@@ -318,6 +348,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
                 String line;
                 while ((line = reader.readLine()) != null) {
 
+                    //noinspection StringConcatenationInsideStringBufferAppend
                     placesBuilder.append(line + "\n");
                 }
 
@@ -340,13 +371,15 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 
 
 
+    @SuppressWarnings("Convert2Diamond")
     private static ArrayList<GooglePlace> parseGoogleParse(final String response) {
 
+        //noinspection Convert2Diamond
         ArrayList<GooglePlace> temp = new ArrayList<GooglePlace>();
         try {
 
             // make an jsonObject in order to parse the response
-            JSONObject jsonObject = new JSONObject(response.toString());
+            JSONObject jsonObject = new JSONObject(response);
 
             // make an jsonObject in order to parse the response
             if (jsonObject.has("results")) {
@@ -417,6 +450,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 
 
     //
+    @SuppressWarnings("WeakerAccess")
     public static class GooglePlace {
         private String name;
         private String category;
@@ -460,6 +494,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
             this.rating = rating;
         }
 
+        @SuppressWarnings("unused")
         public String getRating() {
             return rating;
         }
@@ -479,6 +514,7 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 
 //        add get and set photo id
         public void setPhotoID(String phID){this.photoID=phID;}
+        @SuppressWarnings("WeakerAccess")
         public String getPhotoID(){return photoID;}
 
 //        add get and set lat and long
@@ -492,8 +528,51 @@ ArrayAdapter<GooglePlace> adapter = new customAdapter(getApplicationContext(),0,
 
     }
 
-    //
 
+
+
+
+//    public void readData(final MyCallback myCallback) {
+//
+//
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//        // [START single_value_read]
+//
+//        mDatabase.child("place_key").addListenerForSingleValueEvent(
+//                new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        // Get user value
+//
+//                       String value = dataSnapshot.getValue().toString();
+//
+//                       myCallback.onCallback(value);
+//
+//                        GOOGLE_KEY_Lorry=value;
+//
+//                        // [END_EXCLUDE]
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.e("error", "getUser:onCancelled", databaseError.toException());
+//                        // [START_EXCLUDE]
+//                    }
+//                });
+//
+//        // [END single_value_read]
+//    }
+//
+//    public interface MyCallback {
+//        void onCallback(String value);
+//            }
+
+//    public void setKey(String keyRead){
+//        this.GOOGLE_KEY_Lorry=keyRead;
+//
+//    }
+//
+//    public String getKey(){return GOOGLE_KEY_Lorry;}
 
 //END
  //       resultList=(ListView)findViewById(R.id.listresult);

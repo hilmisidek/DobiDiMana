@@ -2,7 +2,6 @@
 
 <LinearLayout
     android:orientation="vertical"
-    android:background="#ffffff"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -26,8 +25,10 @@
         android:text="@string/result_text"
         android:layout_margin="8dp"/>
 
+
+
     <ListView
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
         android:id="@android:id/list"
         android:layout_weight="2"
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ads:adSize="MEDIUM_RECTANGLE"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        ads:adUnitId="ca-app-pub-7976328006968332/5967944804"
         android:layout_gravity="bottom"
         android:visibility="gone">
     </com.google.android.gms.ads.AdView>
@@ -54,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        ads:adUnitId="ca-app-pub-7976328006968332/6681248918"
         android:layout_gravity="bottom">
     </com.google.android.gms.ads.AdView>
 

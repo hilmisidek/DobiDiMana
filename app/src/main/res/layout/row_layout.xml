@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <LinearLayout
-    android:orientation="vertical"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -12,16 +12,16 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="#222222"
-        android:padding="10dp"
+        android:padding="8dp"
         android:id="@+id/listText"
-        android:text="Name"/>
+        android:text="@string/name_label"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addressText"
-        android:text="Address"
-        android:padding="10dp"
+        android:text="@string/address_label"
+        android:padding="8dp"
         />
 
     <RelativeLayout
@@ -33,14 +33,14 @@
             android:layout_margin="8dp"
             android:id="@+id/result_open_label"
             android:textStyle="bold"
-            android:text="Open Now:"/>
+            android:text="@string/open_now_label"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:id="@+id/result_open_text"
             android:layout_toEndOf="@id/result_open_label"
-            android:text="YES/NO/NA"
+            android:text="@string/open_now"
             android:textStyle="bold"
             android:textColor="#FFA500"/>
         <TextView
@@ -48,16 +48,17 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textStyle="bold"
-            android:text="Distance :"
+            android:text="@string/distance_label"
             android:layout_toStartOf="@id/result_distance_text"
             android:layout_toLeftOf="@id/result_distance_text"
             android:layout_margin="8dp"
-            android:id="@+id/result_distance_label" />
+            android:id="@+id/result_distance_label"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="  km"
+            android:layout_alignParentEnd="true"
+            android:text="@string/distance_unit"
             android:textStyle="bold"
             android:textColor="#0000FF"
             android:layout_margin="8dp"

@@ -15,13 +15,13 @@
     >
     <item
         android:id="@+id/search_dobi"
-        android:title="SEARCH NOW"
+        android:title="@string/search_menu_label"
         app:showAsAction="collapseActionView"
         />
 
     <item
         android:id="@+id/about"
-        android:title="about"
+        android:title="@string/menu_about_label"
         app:showAsAction="collapseActionView"
         />
 

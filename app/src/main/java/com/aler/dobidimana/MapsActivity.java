@@ -1,4 +1,5 @@
 package com.aler.dobidimana;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -36,6 +37,7 @@ import java.lang.String;
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
+@SuppressWarnings("unused")
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback,LocationListener{
 
@@ -48,6 +50,7 @@ public class MapsActivity extends AppCompatActivity
 
 
     private TextView tempR;
+    private TextView statusBottom;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -121,7 +124,9 @@ public class MapsActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 //notification
         tempR= findViewById(R.id.tempResult);
-        tempR.setText("Getting device location");
+        tempR.setText(R.string.get_device_location);
+        statusBottom=findViewById(R.id.status_bottom);
+        statusBottom.setText(R.string.wait_label);
         getDeviceLocation();
 
 
@@ -228,7 +233,10 @@ public class MapsActivity extends AppCompatActivity
                 Double setLat = mLastKnownLocation.getLatitude();
                 tempR = findViewById(R.id.tempResult);
 
-                tempR.setText("Device location updated");
+                tempR.setText(R.string.device_location_updated);
+
+                statusBottom=findViewById(R.id.status_bottom);
+                statusBottom.setText(R.string.search_now_text);
 
                 return false;
             }
@@ -265,7 +273,9 @@ public class MapsActivity extends AppCompatActivity
                             if (task.isSuccessful()) {
                                 // Set the map's camera position to the current location of the device.
                                 mLastKnownLocation = task.getResult();
-                                tempR.setText("Device location updated");
+                                tempR.setText(R.string.device_location_updated);
+                                statusBottom=findViewById(R.id.status_bottom);
+                                statusBottom.setText(R.string.search_now_text);
                                 //NULL location handler?
 
 
@@ -294,12 +304,14 @@ public class MapsActivity extends AppCompatActivity
                     });
                 }
                 else{
-                    tempR.setText("else true");
+                   // tempR.setText("else true");
                     mNoll.requestLocationUpdates(bestProvider, 1000, 0, this);
                //     while (mLastKnownLocation==null){
                     mMap.setMyLocationEnabled(false);
-                    tempR.setText("waiting for GPS");
+                    tempR.setText(R.string.wait_for_GPS);
                     textBlinkStart(tempR);
+                    statusBottom=findViewById(R.id.status_bottom);
+                    statusBottom.setText(R.string.wait_label);
                  //   }
                 //    mLastKnownLocation=mNoll.getLastKnownLocation(bestProvider);
 //                    getDeviceLocation();
@@ -523,13 +535,16 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onLocationChanged(Location location) {
         //Hey, a non null location! Sweet!
 
         //remove location callback:
         textBlinkStop(tempR);
-        tempR.setText("device location updated now");
+        tempR.setText(R.string.device_location_updated);
+        statusBottom=findViewById(R.id.status_bottom);
+        statusBottom.setText(R.string.search_now_text);
         mLastKnownLocation=mNoll.getLastKnownLocation(bestProvider);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(mLastKnownLocation.getLatitude(),
@@ -578,6 +593,7 @@ public class MapsActivity extends AppCompatActivity
         move.putExtras(b);
         startActivity(move);
     }
+
 
 
 

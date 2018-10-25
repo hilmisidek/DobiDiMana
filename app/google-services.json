@@ -15,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "745397018782-133kbpjr5k59q75dtdep0mhi7roi7hl2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aler.dobidimana",
+            "certificate_hash": "d6aec22b9c35d9585dabd56ed7f293713f556593"
+          }
+        },
+        {
           "client_id": "745397018782-flbho9f9q1l6kbijdv7vugu8qn2l80lk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZTHqvUWa7-ZaQ-3UBC_mIwVJVZYiyJVg"
+          "current_key": "AIzaSyB3Whjwqu5yC6PrgM7yZr6zUYO_x8b3rOc"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745397018782-flbho9f9q1l6kbijdv7vugu8qn2l80lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

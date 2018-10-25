@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aler.dobidimana">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.aler.dobidimana"
+    tools:ignore="GoogleAppIndexingWarning">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -19,7 +21,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,7 +57,8 @@
         </activity>
         <activity android:name=".result" />
         <activity android:name=".about" />
-        <activity android:name=".detailPage"></activity>
+        <activity android:name=".detailPage"/>
+
        <!--for API 28 need to add below lines-->
         <uses-library android:name="org.apache.http.legacy"
             android:required="false"/>

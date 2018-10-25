@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dobi Di Mana</string>
+    <string name="name_label">Nama:</string>
+    <string name="address_label">Alamat:</string>
+    <string name="open_now_label">Buka:</string>
+    <string name="name">Nama Syarikat:</string>
+    <string name="address">Alamat Syarikat:</string>
+    <string name="open_now">YA/TAK/NA</string>
+    <string name="go_button">GO</string>
+    <string name="contentdesc_text">Mencari Gambar</string>
+    <string name="loc_status">Status Lokasi</string>
+    <string name="result_text">Hasil carian mengikut jarak (20 terdekat)</string>
+    <string name="distance_label">Jarak:</string>
+    <string name="distance">X m/km</string>
+    <string name="version">Version 1.0.0</string>
+    <string name="builtApp">Dibina menggunakan Android Studio</string>
+    <string name="promo_text">Sila email ke email di atas sekianya berhasrat membuat applikasi tuan/puan</string>
+    <string name="nopicture_text">Tiada gambar, iklan ditunjukkan</string>
+    <string name="search_now_text">Cari Sekarang -></string>
+    <string name="search_menu_label">CARI SKRG</string>
+    <string name="no_result_text">Tiada hasil, iklan ditunjukkan</string>
+    <string name="get_device_location">Mencari Lokasi Pengguna</string>
+    <string name="wait_label">TUNGGU</string>
+    <string name="device_location_updated">Lokasi Pengguna Dikemaskini</string>
+    <string name="wait_for_GPS">Menunggu GPS</string>
+</resources>

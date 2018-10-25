@@ -37,8 +37,20 @@
         android:layout_weight="0"
         android:layout_gravity="center">
 
-
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0000FF"
+            android:textSize="14sp"
+            android:layout_margin="8dp"
+            android:layout_centerInParent="true"
+            android:text="@string/search_now_text"
+            android:layout_toLeftOf="@id/imageButton"
+            android:layout_toStartOf="@id/imageButton"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/status_bottom"
+            tools:ignore="RtlHardcoded" />
 
 
 
@@ -54,7 +66,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="@string/contentdesc_text"/>
+            android:contentDescription="@string/contentdesc_text"
+            tools:ignore="RtlHardcoded" />
     </RelativeLayout>
 
 

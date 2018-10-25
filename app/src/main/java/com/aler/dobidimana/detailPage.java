@@ -1,5 +1,6 @@
 package com.aler.dobidimana;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -9,24 +10,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.util.Locale;
-
+@SuppressWarnings("ALL")
 public class detailPage extends AppCompatActivity {
 double latFinal;
 double longFinal;
-    //String unit="m";
-//insert your API key here --
-    private String GOOGLE_KEY="your key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GOOGLE_KEY=getString(R.string.google_maps_key);
+        //String unit="m";
+        //insert your API key here --
+        String GOOGLE_KEY = getString(R.string.place_api_key);
         setContentView(R.layout.activity_detail_page);
         Bundle b=getIntent().getExtras();
         String nameDetail=b.getString("nameDetail");
@@ -40,6 +40,7 @@ double longFinal;
         latFinal=Double.valueOf(latitudeDetail);
         longFinal=Double.valueOf(longitudeDetail);
         String distanceFinal=distanceValue(distanceDetail);
+        MobileAds.initialize(this,getString(R.string.admob_key));
 
 
 //        if (distanceDetail.compareTo(999.99f)>0) {
@@ -67,10 +68,10 @@ double longFinal;
 //            }
 
 
-        TextView nameText=(TextView)findViewById(R.id.name_Text);
-        TextView addressText=(TextView)findViewById(R.id.addree_Text);
-        TextView distanceText=(TextView) findViewById(R.id.distance);
-        TextView openText=(TextView)findViewById(R.id.open_now_text);
+        TextView nameText= findViewById(R.id.name_Text);
+        TextView addressText= findViewById(R.id.addree_Text);
+        TextView distanceText= findViewById(R.id.distance);
+        TextView openText= findViewById(R.id.open_now_text);
 
         nameText.setText(nameDetail);
         addressText.setText(addressDetail);
@@ -84,13 +85,30 @@ double longFinal;
 
 
         String imgURL;
-                  imgURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+photoIDDetail+"&key="+GOOGLE_KEY;
-        ImageView imageDisplay=(ImageView)findViewById(R.id.imageView);
+                  imgURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+photoIDDetail+"&key="+ GOOGLE_KEY;
+        ImageView imageDisplay= findViewById(R.id.imageView);
+        TextView nopictureText=findViewById(R.id.no_picture_detail_text);
+        AdView mAdViewAltDetail = findViewById(R.id.adViewAltDetail);
+    if (photoIDDetail.contentEquals("")){
 
-    if (photoIDDetail.contentEquals("")){imageDisplay.setImageResource(android.R.drawable.presence_busy);}
+       nopictureText.setVisibility(View.VISIBLE);
+       imageDisplay.setVisibility(View.GONE);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdViewAltDetail.loadAd(adRequest);
+       mAdViewAltDetail.setVisibility(View.VISIBLE);
+
+        imageDisplay.setImageResource(android.R.drawable.presence_busy);
+    }
 //        add code to change pictue if no photo reference present
-    else{Picasso.get().load(imgURL).fit().into(imageDisplay);}
+    else{
+        nopictureText.setVisibility(View.GONE);
+        mAdViewAltDetail.setVisibility(View.GONE);
 
+
+        Picasso.get().load(imgURL).fit().into(imageDisplay);
+
+    }
 
     }
 
@@ -127,8 +145,9 @@ double longFinal;
 
  }
 
+@SuppressLint("DefaultLocale")
 public String distanceValue(Float distance){
-String distanceAfter=" ";
+@SuppressWarnings("UnusedAssignment") String distanceAfter=" ";
     int compareResult=Float.compare(distance,999.99f);
 
     if (compareResult>0){

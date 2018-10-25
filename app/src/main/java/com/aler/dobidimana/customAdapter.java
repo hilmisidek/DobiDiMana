@@ -1,28 +1,24 @@
 package com.aler.dobidimana;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
+@SuppressWarnings({"ALL", "CanBeFinal"})
 public class customAdapter extends ArrayAdapter<result.GooglePlace> {
 
     private Context context;
+    @SuppressWarnings("CanBeFinal")
     private ArrayList<result.GooglePlace> venuesList;
+    @SuppressWarnings("CanBeFinal")
     public Float[] distanceResult;
 
     public customAdapter(Context context, int resource, ArrayList objects,Float[] distance) {
@@ -42,10 +38,10 @@ public class customAdapter extends ArrayAdapter<result.GooglePlace> {
         String distanceFinalResult=diPage.distanceValue(distanceResult[position]);
         //get the inflater and inflate the XML layout for each item
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.row_layout, null);
+        @SuppressLint({"InflateParams", "ViewHolder"}) View view = inflater.inflate(R.layout.row_layout, null);
 
 
-        TextView title = (TextView) view.findViewById(R.id.listText);
+        TextView title = view.findViewById(R.id.listText);
         TextView address = (TextView) view.findViewById(R.id.addressText);
         TextView openNow = (TextView) view.findViewById(R.id.result_open_text);
         TextView distance = (TextView) view.findViewById(R.id.result_distance_text);
