@@ -152,17 +152,31 @@
 
 
     </ScrollView>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
 
-            <Button
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/powered_by_google_light"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBaseline="@id/goButton"
+        android:id="@+id/google_attribution"/>
+
+        <Button
                 android:id="@+id/goButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/go_button"
                 android:onClick="goAction"
                 android:layout_margin="8dp"
-                android:layout_gravity="right"
-                tools:ignore="RtlHardcoded" />
+                android:layout_alignParentRight="true"
+                tools:ignore="RtlHardcoded"
 
+            />
+</RelativeLayout>
 
 
 
