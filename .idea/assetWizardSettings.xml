@@ -18,12 +18,23 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="foregroundClipArt">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundImage">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="109" />
+                                                <entry key="scalingPercent" value="108" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -35,6 +46,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="foregroundImage" value="C:\androidSDK\DobiDiMana\app\src\main\res\drawable\icon.png" />
+                                      <entry key="previewDensity" value="HIGH" />
                                     </map>
                                   </option>
                                 </PersistentState>

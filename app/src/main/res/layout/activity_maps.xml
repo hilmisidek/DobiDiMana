@@ -60,7 +60,7 @@
             android:layout_height="50dp"
             android:background="@android:color/background_light"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/icon"
+            app:srcCompat="@drawable/iconsearch"
             android:onClick="moveAction"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
